@@ -1,0 +1,38 @@
+<configuration>
+    <appender name="gdoop" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender-->
+        <File>/Users/nvaithianathan/Documents/logs/SBTlogging.log</File>
+        <encoder class="com.arpnetworking.logback.StenoEncoder">
+            <safe>false</safe>
+            <InjectContextLogger>true</InjectContextLogger>
+            <jacksonModule class="com.fasterxml.jackson.module.scala.DefaultScalaModule" />
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <maxIndex>5</maxIndex>
+            <FileNamePattern>/Users/nvaithianathan/Documents/logs/SBTlogging.log.%i</FileNamePattern>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>20MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="com.arpnetworking.logback.StenoEncoder">
+            <safe>false</safe>
+            <InjectContextLogger>true</InjectContextLogger>
+            <jacksonModule class="com.fasterxml.jackson.module.scala.DefaultScalaModule" />
+        </encoder>
+    </appender>
+    <logger name="org.apache.spark" level="ERROR"/>
+    <logger name="org.apache.spark.repl.SparkIMain" level="ERROR"/>
+    <logger name="org.apache.spark.repl.SparkILoop" level="ERROR"/>
+    <logger name="org.apache.parquet" level="ERROR"/>
+    <logger name="org.eclipse.jetty.util.component.AbstractLifeCycle" level="ERROR"/>
+    <logger name="org.apache.hadoop" level="ERROR"/>
+    <logger name="org.spark_project" level="ERROR"/>
+    <logger name="org.apache.kafka" level="ERROR"/>
+    <logger name="com.groupon" level="INFO"/>
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <appender-ref ref="gdoop"/>
+    </root>
+</configuration>
